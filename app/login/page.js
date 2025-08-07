@@ -67,6 +67,32 @@ export default function Login() {
         return;
       }
       
+      // Check for staff credentials (including the hardcoded one and any registered staff)
+      const staffData = JSON.parse(localStorage.getItem('staffData') || '[]');
+      const isHardcodedStaff = formData.email === 'shaff@gmail.com' && formData.password === 'shafff123';
+      const registeredStaff = staffData.find(staff => 
+        staff.email === formData.email && staff.password === formData.password
+      );
+      
+      if (isHardcodedStaff || registeredStaff) {
+        // Staff login - store current staff info and redirect to staff dashboard
+        console.log('Staff login successful');
+        
+        // Store current staff info for the dashboard
+        const currentStaff = isHardcodedStaff ? {
+          firstName: 'Shaff',
+          lastName: 'Ahmed',
+          email: 'shaff@gmail.com',
+          staffId: 'STF001'
+        } : registeredStaff;
+        
+        localStorage.setItem('currentStaff', JSON.stringify(currentStaff));
+        
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        router.push('/staff/dashboard');
+        return;
+      }
+      
       // Regular user login logic (placeholder for now)
       console.log('User login attempt:', formData);
       // Simulate API call

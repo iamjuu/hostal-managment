@@ -76,13 +76,44 @@ export default function Signup() {
     setIsLoading(true);
     
     try {
-      // TODO: Implement actual signup logic here
-      console.log('Signup attempt:', formData);
+      // Store staff data in localStorage for demo purposes
+      if (formData.userType === 'staff') {
+        const staffData = {
+          id: Date.now(),
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          userType: formData.userType,
+          staffId: `STF${String(Date.now()).slice(-3)}`,
+          department: 'Hostel Management',
+          position: 'Staff Member',
+          phoneNumber: '',
+          joinDate: new Date().toISOString().split('T')[0],
+          address: '',
+          dateOfBirth: '',
+          emergencyContact: '',
+          bloodGroup: '',
+          shift: 'Day Shift',
+          status: 'Active',
+          createdAt: new Date().toISOString()
+        };
+        
+        // Store in localStorage (in a real app, this would be sent to your backend)
+        const existingStaff = JSON.parse(localStorage.getItem('staffData') || '[]');
+        existingStaff.push(staffData);
+        localStorage.setItem('staffData', JSON.stringify(existingStaff));
+        
+        console.log('Staff signup successful:', staffData);
+      } else {
+        console.log('Signup attempt:', formData);
+      }
+      
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Redirect to login page after successful signup
-      alert('Account created successfully! Please login. (This is a demo)');
+      alert(`${formData.userType.charAt(0).toUpperCase() + formData.userType.slice(1)} account created successfully! Please login.`);
       // router.push('/login');
     } catch (error) {
       console.error('Signup error:', error);
