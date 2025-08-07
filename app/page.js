@@ -46,7 +46,7 @@ export default function Home() {
       <AnimatedBackground />
       
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-50 relative">
+      <nav className="bg-white/20 backdrop-blur-xl border-b border-white/30 sticky top-0 z-50 relative shadow-lg shadow-black/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -57,13 +57,13 @@ export default function Home() {
             <div className="flex items-center space-x-4">
               <Link
                 href="/login"
-                className="text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-slate-100"
+                className="text-slate-700 hover:text-slate-900 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-white/30 backdrop-blur-sm border border-white/20"
               >
                 Login
               </Link>
               <Link
                 href="/signup"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+                className="bg-white/30 backdrop-blur-sm border border-white/30 hover:bg-white/40 text-slate-800 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20"
               >
                 Sign Up
               </Link>
@@ -86,18 +86,18 @@ export default function Home() {
             Handle bookings, manage residents, and track payments all in one place.
           </p>
           <div className="mt-8 max-w-md mx-auto sm:flex sm:justify-center md:mt-10">
-            <div className="rounded-xl shadow-lg">
+            <div className="rounded-2xl shadow-2xl shadow-black/20">
               <Link
                 href="/signup"
-                className="w-full flex items-center justify-center px-8 py-4 border border-transparent text-base font-semibold rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 md:py-4 md:text-lg md:px-10 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="w-full flex items-center justify-center px-8 py-4 border border-white/30 text-base font-semibold rounded-2xl text-slate-800 bg-white/40 backdrop-blur-xl hover:bg-white/50 md:py-4 md:text-lg md:px-10 transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-2xl hover:shadow-black/20"
               >
                 Get Started
               </Link>
             </div>
-            <div className="mt-4 rounded-xl shadow-lg sm:mt-0 sm:ml-4">
+            <div className="mt-4 rounded-2xl shadow-2xl shadow-black/20 sm:mt-0 sm:ml-4">
               <Link
                 href="/login"
-                className="w-full flex items-center justify-center px-8 py-4 border border-slate-300 text-base font-semibold rounded-xl text-slate-700 bg-white hover:bg-slate-50 md:py-4 md:text-lg md:px-10 transition-all duration-200"
+                className="w-full flex items-center justify-center px-8 py-4 border border-white/30 text-base font-semibold rounded-2xl text-slate-700 bg-white/30 backdrop-blur-xl hover:bg-white/40 md:py-4 md:text-lg md:px-10 transition-all duration-300"
               >
                 Sign In
               </Link>
@@ -109,7 +109,9 @@ export default function Home() {
         <div className="mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h2 className="text-sm font-semibold text-indigo-600 tracking-wide uppercase">Features</h2>
+              <div className="inline-block bg-white/30 backdrop-blur-sm border border-white/30 rounded-2xl px-6 py-3 mb-6">
+                <h2 className="text-sm font-semibold text-indigo-700 tracking-wide uppercase">Features</h2>
+              </div>
               <p className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl tracking-tight">
                 Everything you need to manage your hostel
               </p>
@@ -120,9 +122,10 @@ export default function Home() {
 
             <div className="mt-16">
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 lg:gap-12">
-                <div className="relative p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                  <div className="flex items-center justify-center h-14 w-14 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
-                    <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="group relative p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                     </svg>
                   </div>
@@ -132,9 +135,10 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="relative p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                  <div className="flex items-center justify-center h-14 w-14 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
-                    <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="group relative p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </svg>
                   </div>
@@ -144,9 +148,10 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="relative p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                  <div className="flex items-center justify-center h-14 w-14 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
-                    <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="group relative p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
@@ -156,9 +161,10 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="relative p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                  <div className="flex items-center justify-center h-14 w-14 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
-                    <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="group relative p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
