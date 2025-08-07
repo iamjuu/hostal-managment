@@ -15,7 +15,7 @@
 /* Dark mode styles */
 .dark {
   --background: #101d40;
-  --foreground: #ededed;
+  --foreground: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
