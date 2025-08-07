@@ -4,6 +4,45 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+// Animated Background Component
+function AnimatedBackground() {
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {/* Floating Balls */}
+      <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-indigo-400/30 rounded-full animate-float-1"></div>
+      <div className="absolute top-1/3 right-1/4 w-6 h-6 bg-purple-400/20 rounded-full animate-float-2"></div>
+      <div className="absolute top-2/3 left-1/3 w-3 h-3 bg-blue-400/40 rounded-full animate-float-3"></div>
+      <div className="absolute top-1/2 right-1/3 w-5 h-5 bg-indigo-300/25 rounded-full animate-float-4"></div>
+      <div className="absolute top-3/4 left-1/2 w-4 h-4 bg-purple-300/30 rounded-full animate-float-5"></div>
+      <div className="absolute top-1/6 right-1/2 w-3 h-3 bg-blue-300/35 rounded-full animate-float-6"></div>
+      
+      {/* Larger Floating Elements */}
+      <div className="absolute top-1/4 right-1/6 w-8 h-8 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full animate-float-slow"></div>
+      <div className="absolute top-2/3 right-1/4 w-10 h-10 bg-gradient-to-r from-blue-400/15 to-indigo-400/15 rounded-full animate-float-slow-reverse"></div>
+      
+      {/* Particle Grid */}
+      <div className="absolute inset-0">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-indigo-300/40 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
+            }}
+          ></div>
+        ))}
+      </div>
+      
+      {/* Gradient Orbs */}
+      <div className="absolute top-1/4 left-1/6 w-32 h-32 bg-gradient-to-r from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div className="absolute bottom-1/4 right-1/6 w-40 h-40 bg-gradient-to-r from-blue-400/8 to-indigo-400/8 rounded-full blur-3xl animate-pulse-slow-reverse"></div>
+    </div>
+  );
+}
+
 export default function Login() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -110,22 +149,25 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+      {/* Animated Background */}
+      <AnimatedBackground />
+      
+      <div className="max-w-md w-full space-y-8 relative z-10">
         {/* Header */}
         <div className="text-center">
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-3xl font-bold text-slate-900 tracking-tight">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-slate-600">
             Welcome back to Hostel Management System
           </p>
         </div>
 
         {/* Form */}
-        <form className="mt-8 space-y-6 bg-white p-8 rounded-xl shadow-lg" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6 bg-white/40 backdrop-blur-xl p-8 rounded-3xl shadow-xl shadow-black/10 border border-white/30" onSubmit={handleSubmit}>
           {errors.general && (
-            <div className="bg-red-50 border border-red-300 text-red-600 px-4 py-3 rounded-md text-sm">
+            <div className="bg-red-50/80 backdrop-blur-sm border border-red-300 text-red-600 px-4 py-3 rounded-xl text-sm">
               {errors.general}
             </div>
           )}
@@ -133,7 +175,7 @@ export default function Login() {
           <div className="space-y-4">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
                 Email address
               </label>
               <input
@@ -143,9 +185,9 @@ export default function Login() {
                 autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`appearance-none rounded-lg relative block w-full px-3 py-2 border ${
-                  errors.email ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm transition-colors`}
+                className={`appearance-none rounded-xl relative block w-full px-3 py-2 border bg-white/50 backdrop-blur-sm ${
+                  errors.email ? 'border-red-300' : 'border-white/30'
+                } placeholder-slate-500 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm transition-all duration-300`}
                 placeholder="Enter your email"
               />
               {errors.email && (
@@ -155,7 +197,7 @@ export default function Login() {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">
                 Password
               </label>
               <input
@@ -165,9 +207,9 @@ export default function Login() {
                 autoComplete="current-password"
                 value={formData.password}
                 onChange={handleChange}
-                className={`appearance-none rounded-lg relative block w-full px-3 py-2 border ${
-                  errors.password ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm transition-colors`}
+                className={`appearance-none rounded-xl relative block w-full px-3 py-2 border bg-white/50 backdrop-blur-sm ${
+                  errors.password ? 'border-red-300' : 'border-white/30'
+                } placeholder-slate-500 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm transition-all duration-300`}
                 placeholder="Enter your password"
               />
               {errors.password && (
@@ -183,9 +225,9 @@ export default function Login() {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-white/30 rounded bg-white/50"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-900">
                 Remember me
               </label>
             </div>
@@ -202,11 +244,11 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="group relative w-full flex justify-center py-3 px-4 border border-white/30 text-sm font-semibold rounded-2xl text-slate-800 bg-white/40 backdrop-blur-xl hover:bg-white/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20"
             >
               {isLoading ? (
                 <div className="flex items-center">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-slate-800 mr-2"></div>
                   Signing in...
                 </div>
               ) : (
@@ -217,7 +259,7 @@ export default function Login() {
 
           {/* Sign up link */}
           <div className="text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-600">
               Don't have an account?{' '}
               <Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
                 Sign up here
