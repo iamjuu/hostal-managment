@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 
 // Animated Background Component
 function AnimatedBackground() {
@@ -40,6 +42,12 @@ function AnimatedBackground() {
 }
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
       {/* Animated Background */}
@@ -50,11 +58,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-slate-900 tracking-tight">
+              <h1 className="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight">
                 Hostel Management System
               </h1>
             </div>
-            <div className="flex items-center space-x-4">
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-4">
               <Link
                 href="/login"
                 className="text-slate-700 hover:text-slate-900 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-white/30 backdrop-blur-sm border border-white/20"
@@ -68,6 +78,58 @@ export default function Home() {
                 Sign Up
               </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={toggleMenu}
+                className="text-slate-700 hover:text-slate-900 p-2 rounded-lg transition-all duration-300 hover:bg-white/30 backdrop-blur-sm border border-white/20"
+                aria-label="Toggle menu"
+              >
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {isMenuOpen ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  )}
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={`md:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+            <div className="py-4 space-y-3 bg-white/20 backdrop-blur-xl rounded-2xl mt-2 border border-white/30 shadow-lg shadow-black/10">
+              <Link
+                href="/login"
+                className="block text-slate-700 hover:text-slate-900 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-white/30 backdrop-blur-sm border border-white/20 mx-3"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="block bg-white/30 backdrop-blur-sm border border-white/30 hover:bg-white/40 text-slate-800 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 mx-3"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sign Up
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
@@ -75,13 +137,13 @@ export default function Home() {
       {/* Hero Section */}
       <main className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center">
-          <h1 className="text-5xl font-bold text-slate-900 sm:text-6xl md:text-7xl tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 sm:text-6xl md:text-7xl tracking-tight">
             <span className="block">Welcome to</span>
             <span className="block bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Hostel Management
             </span>
           </h1>
-          <p className="mt-6 max-w-2xl mx-auto text-lg text-slate-600 sm:text-xl leading-relaxed">
+          <p className="mt-6 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 sm:text-xl leading-relaxed">
             Streamline your hostel operations with our comprehensive management system. 
             Handle bookings, manage residents, and track payments all in one place.
           </p>
@@ -89,7 +151,7 @@ export default function Home() {
             <div className="rounded-2xl shadow-2xl shadow-black/20">
               <Link
                 href="/signup"
-                className="w-full flex items-center justify-center px-8 py-4 border border-white/30 text-base font-semibold rounded-2xl text-slate-800 bg-white/40 backdrop-blur-xl hover:bg-white/50 md:py-4 md:text-lg md:px-10 transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-2xl hover:shadow-black/20"
+                className="w-full flex items-center justify-center px-6 sm:px-8 py-4 border border-white/30 text-base font-semibold rounded-2xl text-slate-800 bg-white/40 backdrop-blur-xl hover:bg-white/50 md:py-4 md:text-lg md:px-10 transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-2xl hover:shadow-black/20"
               >
                 Get Started
               </Link>
@@ -97,7 +159,7 @@ export default function Home() {
             <div className="mt-4 rounded-2xl shadow-2xl shadow-black/20 sm:mt-0 sm:ml-4">
               <Link
                 href="/login"
-                className="w-full flex items-center justify-center px-8 py-4 border border-white/30 text-base font-semibold rounded-2xl text-slate-700 bg-white/30 backdrop-blur-xl hover:bg-white/40 md:py-4 md:text-lg md:px-10 transition-all duration-300"
+                className="w-full flex items-center justify-center px-6 sm:px-8 py-4 border border-white/30 text-base font-semibold rounded-2xl text-slate-700 bg-white/30 backdrop-blur-xl hover:bg-white/40 md:py-4 md:text-lg md:px-10 transition-all duration-300"
               >
                 Sign In
               </Link>
@@ -109,67 +171,67 @@ export default function Home() {
         <div className="mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <div className="inline-block bg-white/30 backdrop-blur-sm border border-white/30 rounded-2xl px-6 py-3 mb-6">
+              <div className="inline-block bg-white/30 backdrop-blur-sm border border-white/30 rounded-2xl px-4 sm:px-6 py-3 mb-6">
                 <h2 className="text-sm font-semibold text-indigo-700 tracking-wide uppercase">Features</h2>
               </div>
-              <p className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl tracking-tight">
+              <p className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 sm:text-4xl tracking-tight">
                 Everything you need to manage your hostel
               </p>
-              <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+              <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
                 Comprehensive tools designed to simplify hostel administration and enhance student experience.
               </p>
             </div>
 
             <div className="mt-16">
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 lg:gap-12">
-                <div className="group relative p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
+              <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-2 lg:gap-12">
+                <div className="group relative p-6 sm:p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
-                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
+                    <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                     </svg>
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-slate-900">Student Management</h3>
-                  <p className="mt-3 text-slate-600 leading-relaxed">
+                  <h3 className="mt-6 text-lg sm:text-xl font-semibold text-slate-900">Student Management</h3>
+                  <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
                     Efficiently manage student registrations, room assignments, and personal information with our intuitive interface.
                   </p>
                 </div>
 
-                <div className="group relative p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
+                <div className="group relative p-6 sm:p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
-                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
+                    <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </svg>
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-slate-900">Payment Tracking</h3>
-                  <p className="mt-3 text-slate-600 leading-relaxed">
+                  <h3 className="mt-6 text-lg sm:text-xl font-semibold text-slate-900">Payment Tracking</h3>
+                  <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
                     Keep track of all payments, dues, and financial transactions with automated reminders and detailed reports.
                   </p>
                 </div>
 
-                <div className="group relative p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
+                <div className="group relative p-6 sm:p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
-                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
+                    <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-slate-900">Room Management</h3>
-                  <p className="mt-3 text-slate-600 leading-relaxed">
+                  <h3 className="mt-6 text-lg sm:text-xl font-semibold text-slate-900">Room Management</h3>
+                  <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
                     Manage room allocations, availability, and maintenance schedules with real-time updates and notifications.
                   </p>
                 </div>
 
-                <div className="group relative p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
+                <div className="group relative p-6 sm:p-8 bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 border border-white/30 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:scale-105 hover:bg-white/50">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
-                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
+                    <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-slate-900">Reports & Analytics</h3>
-                  <p className="mt-3 text-slate-600 leading-relaxed">
+                  <h3 className="mt-6 text-lg sm:text-xl font-semibold text-slate-900">Reports & Analytics</h3>
+                  <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
                     Generate detailed reports and gain valuable insights into your hostel operations with interactive dashboards.
                   </p>
                 </div>
