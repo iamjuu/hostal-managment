@@ -24,7 +24,15 @@ const mockStudentData = [
     emergencyContact: 'Jane Doe (+1-555-0125)',
     bloodGroup: 'O+',
     medicalConditions: 'None',
-    status: 'Active'
+    status: 'Active',
+    profileImage: 'https://i.pravatar.cc/150?img=11',
+    attendance: [88, 92, 85, 90, 95, 87],
+    marks: [
+      { subject: 'Math', score: 89 },
+      { subject: 'CS', score: 93 },
+      { subject: 'Electronics', score: 84 },
+      { subject: 'Algorithms', score: 91 }
+    ]
   },
   {
     id: 2,
@@ -44,7 +52,15 @@ const mockStudentData = [
     emergencyContact: 'Lisa Johnson (+1-555-0128)',
     bloodGroup: 'A+',
     medicalConditions: 'Asthma',
-    status: 'Active'
+    status: 'Active',
+    profileImage: 'https://i.pravatar.cc/150?img=12',
+    attendance: [76, 81, 79, 85, 88, 82],
+    marks: [
+      { subject: 'Accounting', score: 78 },
+      { subject: 'Marketing', score: 85 },
+      { subject: 'Economics', score: 80 },
+      { subject: 'Statistics', score: 83 }
+    ]
   },
   {
     id: 3,
@@ -64,7 +80,15 @@ const mockStudentData = [
     emergencyContact: 'Maria Chen (+1-555-0131)',
     bloodGroup: 'B+',
     medicalConditions: 'None',
-    status: 'Active'
+    status: 'Active',
+    profileImage: 'https://i.pravatar.cc/150?img=13',
+    attendance: [90, 92, 88, 91, 93, 94],
+    marks: [
+      { subject: 'Physics', score: 86 },
+      { subject: 'Chemistry', score: 82 },
+      { subject: 'Math', score: 90 },
+      { subject: 'Mechanics', score: 88 }
+    ]
   },
   {
     id: 4,
@@ -84,7 +108,15 @@ const mockStudentData = [
     emergencyContact: 'Susan Davis (+1-555-0134)',
     bloodGroup: 'AB+',
     medicalConditions: 'Diabetes',
-    status: 'Active'
+    status: 'Active',
+    profileImage: 'https://i.pravatar.cc/150?img=14',
+    attendance: [70, 75, 72, 78, 74, 69],
+    marks: [
+      { subject: 'Clinical', score: 76 },
+      { subject: 'Cognition', score: 72 },
+      { subject: 'Neuro', score: 68 },
+      { subject: 'Research', score: 74 }
+    ]
   },
   {
     id: 5,
@@ -104,7 +136,15 @@ const mockStudentData = [
     emergencyContact: 'Ana Rodriguez (+1-555-0137)',
     bloodGroup: 'O-',
     medicalConditions: 'None',
-    status: 'Active'
+    status: 'Active',
+    profileImage: 'https://i.pravatar.cc/150?img=15',
+    attendance: [82, 85, 80, 88, 86, 84],
+    marks: [
+      { subject: 'Algebra', score: 88 },
+      { subject: 'Calculus', score: 91 },
+      { subject: 'Statistics', score: 85 },
+      { subject: 'Geometry', score: 87 }
+    ]
   }
 ];
 
@@ -151,6 +191,22 @@ export default function AdminDashboard() {
       case 'Overdue': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
     }
+  };
+
+  // Helpers for simple pie charts using CSS conic-gradient
+  const pieColors = ['#6366F1', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#14B8A6', '#3B82F6', '#F97316', '#22C55E', '#E11D48'];
+  const buildConicGradient = (slices) => {
+    const total = slices.reduce((sum, s) => sum + Math.max(0, s.value || 0), 0);
+    if (total <= 0) return 'conic-gradient(#e5e7eb 0 360deg)';
+    let current = 0;
+    const stops = slices.map((s) => {
+      const angle = (Math.max(0, s.value) / total) * 360;
+      const start = current;
+      const end = current + angle;
+      current = end;
+      return `${s.color} ${start}deg ${end}deg`;
+    });
+    return `conic-gradient(${stops.join(',')})`;
   };
 
   const handleLogout = () => {
@@ -381,10 +437,32 @@ export default function AdminDashboard() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          <div className="h-10 w-10 rounded-full bg-indigo-500 flex items-center justify-center">
-                            <span className="text-sm font-medium text-white">
-                              {student.firstName[0]}{student.lastName[0]}
-                            </span>
+                          <div
+                            className="h-10 w-10 rounded-full bg-indigo-500 flex items-center justify-center cursor-pointer hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 overflow-hidden"
+                            onClick={() => setSelectedStudent(student)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                setSelectedStudent(student);
+                              }
+                            }}
+                            aria-label={`View details for ${student.firstName} ${student.lastName}`}
+                            title={`View details for ${student.firstName} ${student.lastName}`}
+                          >
+                            {student.profileImage ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={student.profileImage}
+                                alt={`${student.firstName} ${student.lastName}`}
+                                className="h-10 w-10 object-cover"
+                              />
+                            ) : (
+                              <span className="text-sm font-medium text-white">
+                                {student.firstName[0]}{student.lastName[0]}
+                              </span>
+                            )}
                           </div>
                         </div>
                         <div className="ml-4">
@@ -449,7 +527,30 @@ export default function AdminDashboard() {
               </button>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[34rem] overflow-y-auto">
+              <div className="flex items-center space-x-4 md:col-span-2">
+                <div className="h-16 w-16 rounded-full bg-indigo-500 overflow-hidden flex items-center justify-center">
+                  {selectedStudent.profileImage ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={selectedStudent.profileImage}
+                      alt={`${selectedStudent.firstName} ${selectedStudent.lastName}`}
+                      className="h-16 w-16 object-cover"
+                    />
+                  ) : (
+                    <span className="text-lg font-medium text-white">
+                      {selectedStudent.firstName[0]}{selectedStudent.lastName[0]}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <div className="text-base font-semibold text-gray-900">
+                    {selectedStudent.firstName} {selectedStudent.lastName}
+                  </div>
+                  <div className="text-sm text-gray-500">{selectedStudent.studentId}</div>
+                </div>
+              </div>
+
               <div>
                 <h4 className="font-semibold text-gray-700 mb-2">Personal Information</h4>
                 <div className="space-y-2 text-sm">
@@ -478,6 +579,113 @@ export default function AdminDashboard() {
                 </div>
               </div>
               
+              <div className="md:col-span-2">
+                <h4 className="font-semibold text-gray-700 mb-2">Attendance (last 6 months)</h4>
+                <div className="flex items-end space-x-3 h-32 bg-gray-50 p-3 rounded">
+                  {selectedStudent.attendance && selectedStudent.attendance.length > 0 ? (
+                    selectedStudent.attendance.map((value, idx) => (
+                      <div key={`att-${idx}`} className="flex flex-col items-center justify-end h-full">
+                        <div
+                          className="w-6 bg-indigo-500 rounded"
+                          style={{ height: `${Math.max(4, Math.min(100, value))}%` }}
+                          title={`${value}%`}
+                        />
+                        <span className="mt-1 text-[10px] text-gray-500">M{idx + 1}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-sm text-gray-500">No attendance data</div>
+                  )}
+                </div>
+              </div>
+
+              <div className="md:col-span-2">
+                <h4 className="font-semibold text-gray-700 mb-2">Attendance Overview (Pie Chart)</h4>
+                <div className="flex items-center space-x-6">
+                  <div className="relative w-32 h-32">
+                    <div
+                      className="w-32 h-32 rounded-full"
+                      style={{
+                        background: buildConicGradient([
+                          { value: selectedStudent.attendance?.reduce((sum, val) => sum + val, 0) / (selectedStudent.attendance?.length || 1), color: '#10B981' },
+                          { value: 100 - (selectedStudent.attendance?.reduce((sum, val) => sum + val, 0) / (selectedStudent.attendance?.length || 1)), color: '#EF4444' }
+                        ])
+                      }}
+                    />
+                    <div className="absolute inset-4 bg-white rounded-full flex items-center justify-center">
+                      <span className="text-sm font-semibold text-gray-700">
+                        {Math.round(selectedStudent.attendance?.reduce((sum, val) => sum + val, 0) / (selectedStudent.attendance?.length || 1))}%
+                      </span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Present</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Absent</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="md:col-span-2">
+                <h4 className="font-semibold text-gray-700 mb-2">Marks</h4>
+                <div className="flex items-end space-x-3 h-40 bg-gray-50 p-3 rounded">
+                  {selectedStudent.marks && selectedStudent.marks.length > 0 ? (
+                    selectedStudent.marks.map((item, idx) => (
+                      <div key={`mark-${idx}`} className="flex flex-col items-center justify-end h-full">
+                        <div
+                          className="w-8 bg-green-500 rounded"
+                          style={{ height: `${Math.max(4, Math.min(100, item.score))}%` }}
+                          title={`${item.subject}: ${item.score}`}
+                        />
+                        <span className="mt-1 text-[10px] text-gray-500 truncate max-w-[3rem]" title={item.subject}>{item.subject}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-sm text-gray-500">No marks data</div>
+                  )}
+                </div>
+              </div>
+
+              <div className="md:col-span-2">
+                <h4 className="font-semibold text-gray-700 mb-2">Marks Distribution (Pie Chart)</h4>
+                <div className="flex items-center space-x-6">
+                  <div className="relative w-32 h-32">
+                    <div
+                      className="w-32 h-32 rounded-full"
+                      style={{
+                        background: buildConicGradient(
+                          selectedStudent.marks?.map((mark, idx) => ({
+                            value: mark.score,
+                            color: pieColors[idx % pieColors.length]
+                          })) || []
+                        )
+                      }}
+                    />
+                    <div className="absolute inset-4 bg-white rounded-full flex items-center justify-center">
+                      <span className="text-sm font-semibold text-gray-700">
+                        {Math.round(selectedStudent.marks?.reduce((sum, mark) => sum + mark.score, 0) / (selectedStudent.marks?.length || 1))}%
+                      </span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    {selectedStudent.marks?.map((mark, idx) => (
+                      <div key={`legend-${idx}`} className="flex items-center space-x-2">
+                        <div 
+                          className="w-3 h-3 rounded-full"
+                          style={{ backgroundColor: pieColors[idx % pieColors.length] }}
+                        ></div>
+                        <span className="text-sm text-gray-600">{mark.subject}: {mark.score}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <h4 className="font-semibold text-gray-700 mb-2">Guardian Information</h4>
                 <div className="space-y-2 text-sm">
