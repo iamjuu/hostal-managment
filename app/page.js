@@ -69,18 +69,25 @@ function AnimatedBackground() {
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isDarkMode } = useTheme();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const wrapperClasses = `min-h-screen relative overflow-hidden transition-colors duration-300 ${
+    isDarkMode
+      ? 'bg-[#101d40]'
+      : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100'
+  }`;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-[#101d40] relative overflow-hidden transition-colors duration-300">
+    <div className={wrapperClasses}>
       {/* Animated Background */}
       <AnimatedBackground />
       
       {/* Navigation */}
-      <nav className="bg-white/20 dark:bg-slate-900/20 backdrop-blur-xl border-b border-white/30 dark:border-slate-700/30 sticky top-0 z-50 relative shadow-lg shadow-black/5 dark:shadow-black/20 transition-colors duration-300">
+      <nav className="bg-white/20 dark:bg-[#101d40]/80 backdrop-blur-xl border-b border-white/30 dark:border-slate-600/30 sticky top-0 z-50 relative shadow-lg shadow-black/5 dark:shadow-black/30 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -142,7 +149,7 @@ export default function Home() {
 
           {/* Mobile Menu */}
           <div className={`md:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-            <div className="py-4 space-y-3 bg-white/20 dark:bg-slate-900/20 backdrop-blur-xl rounded-2xl mt-2 border border-white/30 dark:border-slate-700/30 shadow-lg shadow-black/10 dark:shadow-black/20 transition-colors duration-300">
+            <div className="py-4 space-y-3 bg-white/20 dark:bg-[#101d40]/80 backdrop-blur-xl rounded-2xl mt-2 border border-white/30 dark:border-slate-600/30 shadow-lg shadow-black/10 dark:shadow-black/30 transition-colors duration-300">
               <Link
                 href="/login"
                 className="block text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-white/30 dark:hover:bg-slate-800/30 backdrop-blur-sm border border-white/20 dark:border-slate-700/30 mx-3"
@@ -179,7 +186,7 @@ export default function Home() {
             <div className="rounded-2xl shadow-2xl shadow-black/20 dark:shadow-black/40">
               <Link
                 href="/signup"
-                className="w-full flex items-center justify-center px-6 sm:px-8 py-4 border border-white/30 dark:border-slate-700/30 text-base font-semibold rounded-2xl text-slate-800 dark:text-slate-200 bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl hover:bg-white/50 dark:hover:bg-slate-800/50 md:py-4 md:text-lg md:px-10 transition-all duration-300 shadow-lg shadow-black/10 dark:shadow-black/20 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/40"
+                className="w-full flex items-center justify-center px-6 sm:px-8 py-4 border border-white/30 dark:border-slate-600/30 text-base font-semibold rounded-2xl text-slate-800 dark:text-slate-200 bg-white/40 dark:bg-[#101d40]/60 backdrop-blur-xl hover:bg-white/50 dark:hover:bg-[#101d40]/70 md:py-4 md:text-lg md:px-10 transition-all duration-300 shadow-lg shadow-black/10 dark:shadow-black/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/50"
               >
                 Get Started
               </Link>
@@ -187,7 +194,7 @@ export default function Home() {
             <div className="mt-4 rounded-2xl shadow-2xl shadow-black/20 dark:shadow-black/40 sm:mt-0 sm:ml-4">
               <Link
                 href="/login"
-                className="w-full flex items-center justify-center px-6 sm:px-8 py-4 border border-white/30 dark:border-slate-700/30 text-base font-semibold rounded-2xl text-slate-700 dark:text-slate-300 bg-white/30 dark:bg-slate-800/30 backdrop-blur-xl hover:bg-white/40 dark:hover:bg-slate-800/40 md:py-4 md:text-lg md:px-10 transition-all duration-300"
+                className="w-full flex items-center justify-center px-6 sm:px-8 py-4 border border-white/30 dark:border-slate-600/30 text-base font-semibold rounded-2xl text-slate-700 dark:text-slate-300 bg-white/30 dark:bg-[#101d40]/50 backdrop-blur-xl hover:bg-white/40 dark:hover:bg-[#101d40]/60 md:py-4 md:text-lg md:px-10 transition-all duration-300"
               >
                 Sign In
               </Link>
@@ -199,7 +206,7 @@ export default function Home() {
         <div className="mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <div className="inline-block bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 rounded-2xl px-4 sm:px-6 py-3 mb-6 transition-colors duration-300">
+              <div className="inline-block bg-white/30 dark:bg-[#101d40]/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 rounded-2xl px-4 sm:px-6 py-3 mb-6 transition-colors duration-300">
                 <h2 className="text-sm font-semibold text-indigo-700 dark:text-indigo-400 tracking-wide uppercase transition-colors duration-300">Features</h2>
               </div>
               <p className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl tracking-tight transition-colors duration-300">
@@ -212,7 +219,7 @@ export default function Home() {
 
             <div className="mt-16">
               <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-2 lg:gap-12">
-                <div className="group relative p-6 sm:p-8 bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/20 border border-white/30 dark:border-slate-700/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/40 transition-all duration-500 hover:scale-105 hover:bg-white/50 dark:hover:bg-slate-800/50">
+                <div className="group relative p-6 sm:p-8 bg-white/40 dark:bg-[#101d40]/60 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/30 border border-white/30 dark:border-slate-600/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/50 transition-all duration-500 hover:scale-105 hover:bg-white/50 dark:hover:bg-[#101d40]/70">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
                     <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -225,7 +232,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="group relative p-6 sm:p-8 bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/20 border border-white/30 dark:border-slate-700/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/40 transition-all duration-500 hover:scale-105 hover:bg-white/50 dark:hover:bg-slate-800/50">
+                <div className="group relative p-6 sm:p-8 bg-white/40 dark:bg-[#101d40]/60 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/30 border border-white/30 dark:border-slate-600/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/50 transition-all duration-500 hover:scale-105 hover:bg-white/50 dark:hover:bg-[#101d40]/70">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
                     <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -238,7 +245,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="group relative p-6 sm:p-8 bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/20 border border-white/30 dark:border-slate-700/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/40 transition-all duration-500 hover:scale-105 hover:bg-white/50 dark:hover:bg-slate-800/50">
+                <div className="group relative p-6 sm:p-8 bg-white/40 dark:bg-[#101d40]/60 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/30 border border-white/30 dark:border-slate-600/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/50 transition-all duration-500 hover:scale-105 hover:bg-white/50 dark:hover:bg-[#101d40]/70">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
                     <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -251,7 +258,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="group relative p-6 sm:p-8 bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/20 border border-white/30 dark:border-slate-700/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/40 transition-all duration-500 hover:scale-105 hover:bg-white/50 dark:hover:bg-slate-800/50">
+                <div className="group relative p-6 sm:p-8 bg-white/40 dark:bg-[#101d40]/60 backdrop-blur-xl rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/30 border border-white/30 dark:border-slate-600/30 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/50 transition-all duration-500 hover:scale-105 hover:bg-white/50 dark:hover:bg-[#101d40]/70">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25">
                     <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
