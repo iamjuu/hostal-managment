@@ -73,7 +73,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/signup"
-                className="bg-white/30 backdrop-blur-sm border border-white/30 hover:bg-white/40 text-slate-800 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20"
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20"
               >
                 Sign Up
               </Link>
@@ -124,7 +124,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/signup"
-                className="block bg-white/30 backdrop-blur-sm border border-white/30 hover:bg-white/40 text-slate-800 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 mx-3"
+                className="block bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 mx-3"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sign Up
